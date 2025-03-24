@@ -3,6 +3,7 @@ package artur.goz.oop_lab1.DAO;
 import artur.goz.oop_lab1.DAO.interfaces.UserDAO;
 import artur.goz.oop_lab1.configs.DBConfig;
 import artur.goz.oop_lab1.models.User;
+import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.sql.*;
@@ -45,6 +46,19 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public User getUserById(int id) {
+        String sql = "SELECT * FROM users WHERE id = ?";
+        try (Connection conn = DBConfig.connect();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, id);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return mapUser(rs);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         return null;
     }
 

@@ -1,11 +1,9 @@
 package artur.goz.oop_lab1.controllers;
 
-import artur.goz.oop_lab1.Service.AccountService;
+import artur.goz.oop_lab1.Service.interfaces.AccountService;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/account/*")
 public class AccountServlet extends HttpServlet {

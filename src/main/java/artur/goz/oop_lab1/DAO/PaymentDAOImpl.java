@@ -4,6 +4,7 @@ import artur.goz.oop_lab1.DAO.interfaces.AccountDAO;
 import artur.goz.oop_lab1.DAO.interfaces.PaymentDAO;
 import artur.goz.oop_lab1.configs.DBConfig;
 import artur.goz.oop_lab1.models.Payment;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -12,9 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-@RequiredArgsConstructor
 public class PaymentDAOImpl implements PaymentDAO {
-
     @Override
     public void createPayment(Payment payment) {
         String sql = "INSERT INTO payments (account_id, amount, timestamp) VALUES (?, ?, ?)";
