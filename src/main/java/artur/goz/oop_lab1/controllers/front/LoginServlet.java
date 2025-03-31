@@ -1,6 +1,5 @@
-package artur.goz.oop_lab1.controllers;
+package artur.goz.oop_lab1.controllers.front;
 
-import artur.goz.oop_lab1.Service.AuthServiceImpl;
 import artur.goz.oop_lab1.Service.interfaces.AuthService;
 import artur.goz.oop_lab1.models.User;
 import jakarta.servlet.ServletException;

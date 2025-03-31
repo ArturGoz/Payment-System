@@ -1,4 +1,4 @@
-package artur.goz.oop_lab1.controllers;
+package artur.goz.oop_lab1.controllers.front;
 
 import artur.goz.oop_lab1.Service.interfaces.AccountService;
 import artur.goz.oop_lab1.Service.interfaces.CreditCardService;
