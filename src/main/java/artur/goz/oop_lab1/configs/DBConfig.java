@@ -8,15 +8,31 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+@Configuration
 public class DBConfig {
-    @Value("${db.url}")
     private static String url;
-    @Value("${db.username}")
     private static String username;
-    @Value("${db.password}")
     private static String password;
 
+    @Value("${db.url}")
+    public void setUrl(String url) {
+        DBConfig.url = url;
+    }
+
+    @Value("${db.username}")
+    public void setUsername(String username) {
+        DBConfig.username = username;
+    }
+
+    @Value("${db.password}")
+    public void setPassword(String password) {
+        DBConfig.password = password;
+    }
+
     public static Connection connect() throws SQLException {
+        if (url == null || username == null || password == null) {
+            throw new IllegalStateException("Database configuration not initialized. Check property values.");
+        }
         return DriverManager.getConnection(url, username, password);
     }
 }

@@ -18,7 +18,7 @@ public class CreditCardServiceImpl implements CreditCardService {
     }
 
     @Override
-    public List<CreditCard> getClientCards(int clientId) {
-        return creditCardDAO.getCardsByUserId(clientId);
+    public List<CreditCard> getCreditCardsByUserId(int userId) {
+        return creditCardDAO.getCardsByUserId(userId);
     }
 }

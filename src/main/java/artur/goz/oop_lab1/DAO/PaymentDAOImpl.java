@@ -16,7 +16,7 @@ import java.util.List;
 public class PaymentDAOImpl implements PaymentDAO {
     @Override
     public void createPayment(Payment payment) {
-        String sql = "INSERT INTO payments (account_id, amount, timestamp) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO payment (accountId, amount, timestamp) VALUES (?, ?, ?)";
         try (Connection conn = DBConfig.connect();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -31,7 +31,7 @@ public class PaymentDAOImpl implements PaymentDAO {
 
     @Override
     public List<Payment> getPaymentsByAccount(int accountId) {
-        String sql = "SELECT * FROM payments WHERE account_id = ? ORDER BY timestamp DESC";
+        String sql = "SELECT * FROM payment WHERE accountId = ? ORDER BY timestamp DESC";
         List<Payment> payments = new ArrayList<>();
 
         try (Connection conn = DBConfig.connect();
@@ -52,7 +52,7 @@ public class PaymentDAOImpl implements PaymentDAO {
     private Payment mapPayment(ResultSet rs) throws SQLException {
         Payment payment = new Payment();
         payment.setId(rs.getInt("id"));
-        payment.setAccountId(rs.getInt("account_id"));
+        payment.setAccountId(rs.getInt("accountId"));
         payment.setAmount(rs.getDouble("amount"));
         payment.setTimestamp(rs.getTimestamp("timestamp").toLocalDateTime());
         return payment;

@@ -17,7 +17,7 @@ import java.util.List;
 public class AccountDAOImpl implements AccountDAO {
     @Override
     public void blockAccount(int accountId, boolean block) {
-        String sql = "UPDATE accounts SET blocked = ? WHERE id = ?";
+        String sql = "UPDATE account SET blocked = ? WHERE id = ?";
         try (Connection conn = DBConfig.connect();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setBoolean(1, block);
@@ -29,22 +29,8 @@ public class AccountDAOImpl implements AccountDAO {
     }
 
     @Override
-    public void addFunds(int accountId, double amount) {
-        String sql = "UPDATE accounts SET balance = balance + ? WHERE id = ?";
-        try (Connection conn = DBConfig.connect();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-            stmt.setDouble(1, amount);
-            stmt.setInt(2, accountId);
-            stmt.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @Override
     public Account getAccount(int accountId) {
-        String sql = "SELECT * FROM accounts WHERE id = ?";
+        String sql = "SELECT * FROM account WHERE id = ?";
         try (Connection conn = DBConfig.connect();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -60,14 +46,19 @@ public class AccountDAOImpl implements AccountDAO {
         return null;
     }
 
-    @Override
-    public List<Account> getUserAccounts(int userId) {
-        return List.of();
-    }
 
     @Override
     public void updateBalance(int accountId, double amount) {
+        String sql = "UPDATE account SET balance = balance + ? WHERE id = ?";
+        try (Connection conn = DBConfig.connect();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
+            stmt.setDouble(1, amount);
+            stmt.setInt(2, accountId);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private Account mapAccount(ResultSet rs) throws SQLException {

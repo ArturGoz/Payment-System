@@ -1,0 +1,31 @@
+INSERT INTO User (name, login, password, role)
+VALUES ('Артур', 'arthur123', 'securepassword1', 'admin');
+
+INSERT INTO User (name, login, password, role)
+VALUES ('Олена', 'olena456', 'securepassword2', 'user');
+
+INSERT INTO User (name, login, password, role)
+VALUES ('Максим', 'maksim789', 'securepassword3', 'moderator');
+
+
+
+---
+
+-- Get the User ID for Олена
+SET @userId = (SELECT id FROM User WHERE login = 'olena456');
+
+-- Insert into Account table
+INSERT INTO Account (balance, blocked)
+VALUES (1000.00, FALSE);
+
+-- Get the Account ID for the created account
+SET @accountId = LAST_INSERT_ID();
+
+-- Insert into CreditCard table
+INSERT INTO CreditCard (cardNumber, userId, accountId, expirationDate)
+VALUES ('1234-5678-9012-3456', @userId, @accountId, '2027-12-31');
+
+-- Insert into Payment table
+INSERT INTO Payment (accountId, amount, timestamp)
+VALUES (@accountId, 200.00, NOW()),
+       (@accountId, 50.00, NOW());

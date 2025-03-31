@@ -1,0 +1,30 @@
+CREATE TABLE User (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    login VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    role VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE Account (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    balance DECIMAL(10, 2) NOT NULL,
+    blocked BOOLEAN NOT NULL
+);
+
+CREATE TABLE CreditCard (
+    cardNumber VARCHAR(255) PRIMARY KEY,
+    userId INT NOT NULL,
+    accountId INT NOT NULL,
+    expirationDate DATE NOT NULL,
+    FOREIGN KEY (userId) REFERENCES User(id),
+    FOREIGN KEY (accountId) REFERENCES Account(id)
+);
+
+CREATE TABLE Payment (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    accountId INT NOT NULL,
+    amount DECIMAL(10, 2) NOT NULL,
+    timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (accountId) REFERENCES Account(id)
+);

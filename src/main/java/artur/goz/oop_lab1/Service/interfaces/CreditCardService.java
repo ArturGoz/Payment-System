@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface CreditCardService {
     void addCreditCard(CreditCard card);
-    List<CreditCard> getClientCards(int clientId);
+    List<CreditCard> getCreditCardsByUserId(int userId);
 }

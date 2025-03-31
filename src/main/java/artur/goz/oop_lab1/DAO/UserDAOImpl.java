@@ -12,7 +12,7 @@ import java.sql.*;
 public class UserDAOImpl implements UserDAO {
     @Override
     public void createUser(User user) {
-        String sql = "INSERT INTO users (name, login, password, role) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO user (name, login, password, role) VALUES (?, ?, ?, ?)";
         try (Connection conn = DBConfig.connect();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -28,7 +28,7 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public User getUserByLogin(String login) {
-        String sql = "SELECT * FROM clients WHERE login = ?";
+        String sql = "SELECT * FROM user WHERE login = ?";
         try (Connection conn = DBConfig.connect();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -46,7 +46,7 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public User getUserById(int id) {
-        String sql = "SELECT * FROM users WHERE id = ?";
+        String sql = "SELECT * FROM user WHERE id = ?";
         try (Connection conn = DBConfig.connect();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
