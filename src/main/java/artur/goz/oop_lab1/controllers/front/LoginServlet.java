@@ -11,7 +11,6 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-
 import java.io.IOException;
 
 @WebServlet("/login")
@@ -22,14 +21,13 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     public void init() {
-      //  this.authService = new AuthServiceImpl();
-        log.info("Init login servlet");
+        log.info("LoginServlet initialized.");
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        log.info("In doGet login servlet");
+        log.info("Handling GET request to /login");
         req.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(req, resp);
     }
 
@@ -38,16 +36,22 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         String login = req.getParameter("username");
         String password = req.getParameter("password");
+
+        log.debug("Received POST request with username: {}", login);
+
         try {
             User user = authService.login(login, password);
-            log.info("User logged in " + user);
-            HttpSession session = req.getSession();
+            log.info("User successfully authenticated: {}", user.getName());
+
+            HttpSession session = req.getSession(true);
             session.setAttribute("user", user);
             session.setAttribute("role", user.getRole());
-            log.info("In doPost login servlet");
+
+            log.debug("Session created. User role: {}", user.getRole());
+
             resp.sendRedirect(req.getContextPath() + "/user");
         } catch (RuntimeException e) {
-            log.error(e.getMessage());
+            log.warn("Authentication failed for username: {}. Reason: {}", login, e.getMessage());
             req.setAttribute("error", "Invalid credentials");
             doGet(req, resp);
         }

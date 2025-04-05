@@ -3,7 +3,6 @@ package artur.goz.oop_lab1.DAO;
 import artur.goz.oop_lab1.DAO.interfaces.CreditCardDAO;
 import artur.goz.oop_lab1.configs.DBConfig;
 import artur.goz.oop_lab1.models.CreditCard;
-import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.sql.*;

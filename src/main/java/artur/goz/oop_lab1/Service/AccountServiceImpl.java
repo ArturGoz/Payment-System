@@ -3,7 +3,6 @@ package artur.goz.oop_lab1.Service;
 import artur.goz.oop_lab1.DAO.interfaces.AccountDAO;
 import artur.goz.oop_lab1.DAO.interfaces.CreditCardDAO;
 import artur.goz.oop_lab1.Service.interfaces.AccountService;
-import artur.goz.oop_lab1.Service.interfaces.CreditCardService;
 import artur.goz.oop_lab1.models.Account;
 import artur.goz.oop_lab1.models.CreditCard;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +18,7 @@ public class AccountServiceImpl implements AccountService {
     private final CreditCardDAO creditCardDAO;
 
     @Override
-    public List<Account> getAccountsByUserId(int userId)  {
+    public List<Account> getAccountsByUserId(int userId) {
         List<CreditCard> creditCardList = creditCardDAO.getCardsByUserId(userId);
         List<Account> accountList = new ArrayList<>();
         for (CreditCard creditCard : creditCardList) {

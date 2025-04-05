@@ -9,7 +9,6 @@ import artur.goz.oop_lab1.models.Account;
 import artur.goz.oop_lab1.models.CreditCard;
 import artur.goz.oop_lab1.models.Payment;
 import artur.goz.oop_lab1.models.User;
-import jakarta.annotation.PostConstruct;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -39,32 +38,27 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void createRandomUserWithCardsAndAccounts() {
-        // 1. Генерація та збереження користувача
         User user = generateRandomUser();
         user = userDAO.createUser(user);
 
-        // 2. Генерація та збереження акаунта
         Account account = generateRandomAccount(user.getId());
         account = accountDAO.createAccount(account);
 
-        // 3. Генерація та збереження кредитної картки
         CreditCard creditCard = generateRandomCreditCard(user.getId(), account.getId());
         creditCardDAO.addCreditCard(creditCard);
 
-        // 4. Генерація та збереження платежу
         Payment payment = generateRandomPayment(account.getId());
         paymentDAO.createPayment(payment);
     }
 
-    // Допоміжні методи для генерації випадкових об'єктів
     private User generateRandomUser() {
         Random random = new Random();
         User user = new User();
         user.setName("User" + random.nextInt(100));
         user.setLogin("login" + random.nextInt(100));
-        user.setPassword("pass" + random.nextInt(100)); // У реальності потрібне хешування
+        user.setPassword("pass" + random.nextInt(100));
         user.setRole("user");
-      //  user.setRole(random.nextBoolean() ? "user" : "admin");
+        //  user.setRole(random.nextBoolean() ? "user" : "admin");
         return user;
     }
 
@@ -79,7 +73,7 @@ public class UserServiceImpl implements UserService {
     private CreditCard generateRandomCreditCard(int userId, int accountId) {
         Random random = new Random();
         CreditCard creditCard = new CreditCard();
-        creditCard.setCardNumber("CARD" + random.nextInt(10000)); // Випадковий номер
+        creditCard.setCardNumber("CARD" + random.nextInt(10000));
         creditCard.setUserId(userId);
         creditCard.setAccountId(accountId);
         creditCard.setExpirationDate(LocalDate.now().plusYears(random.nextInt(5) + 1)); // Термін дії 1-5 років
@@ -90,7 +84,7 @@ public class UserServiceImpl implements UserService {
         Random random = new Random();
         Payment payment = new Payment();
         payment.setAccountId(accountId);
-        payment.setAmount(random.nextDouble() * 500); // Сума від 0 до 500
+        payment.setAmount(random.nextDouble() * 500);
         payment.setTimestamp(LocalDateTime.now());
         return payment;
     }

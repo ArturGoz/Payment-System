@@ -3,7 +3,6 @@ package artur.goz.oop_lab1.DAO;
 import artur.goz.oop_lab1.DAO.interfaces.UserDAO;
 import artur.goz.oop_lab1.configs.DBConfig;
 import artur.goz.oop_lab1.models.User;
-import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.sql.*;
@@ -22,10 +21,9 @@ public class UserDAOImpl implements UserDAO {
             stmt.setString(4, user.getRole());
             stmt.executeUpdate();
 
-            // Retrieve the auto-generated user ID
             try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
-                    user.setId(generatedKeys.getInt(1)); // Set the generated ID to the user object
+                    user.setId(generatedKeys.getInt(1));
                 } else {
                     throw new SQLException("Creating user failed, no ID obtained.");
                 }

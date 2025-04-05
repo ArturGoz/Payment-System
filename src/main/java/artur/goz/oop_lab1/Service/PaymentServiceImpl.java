@@ -7,12 +7,9 @@ import artur.goz.oop_lab1.Service.interfaces.PaymentService;
 import artur.goz.oop_lab1.models.Account;
 import artur.goz.oop_lab1.models.Payment;
 import jakarta.transaction.Transactional;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;

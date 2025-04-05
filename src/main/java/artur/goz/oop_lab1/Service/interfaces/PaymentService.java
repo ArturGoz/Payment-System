@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface PaymentService {
     void processPayment(int accountIdToPay, int accountIdToGet, double amount);
+
     void addFunds(int accountId, double amount);
+
     List<Payment> getPaymentsByUserId(int userId);
 }

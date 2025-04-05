@@ -19,16 +19,24 @@ public class AuthFilter implements Filter {
         HttpServletResponse resp = (HttpServletResponse) response;
         String path = req.getRequestURI().substring(req.getContextPath().length());
 
-        // Allow access to the login page and static resources (adjust as needed)
+        log.debug("Filtering request to path: {}", path);
+
         if (path.equals("/login") || path.startsWith("/templates/") || path.startsWith("/public/")) {
+            log.debug("Public path accessed: {} - allowing through", path);
             chain.doFilter(request, response);
             return;
         }
 
         HttpSession session = req.getSession(false);
-        if (session == null || session.getAttribute("user") == null) {
+
+        if (session == null) {
+            log.info("No session found. Redirecting to login.");
+            resp.sendRedirect(req.getContextPath() + "/login");
+        } else if (session.getAttribute("user") == null) {
+            log.info("Session exists but no user found in session. Redirecting to login.");
             resp.sendRedirect(req.getContextPath() + "/login");
         } else {
+            log.debug("User authenticated. Proceeding with request to {}", path);
             chain.doFilter(request, response);
         }
     }

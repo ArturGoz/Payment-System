@@ -1,4 +1,5 @@
 package artur.goz.oop_lab1;
+
 import artur.goz.oop_lab1.DAO.interfaces.AccountDAO;
 import artur.goz.oop_lab1.DAO.interfaces.CreditCardDAO;
 import artur.goz.oop_lab1.Service.AccountServiceImpl;
@@ -13,8 +14,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 class AccountServiceImplTest {

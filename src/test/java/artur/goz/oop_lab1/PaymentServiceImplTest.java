@@ -85,9 +85,9 @@ class PaymentServiceImplTest {
         int userId = 1;
         Account account = new Account();
         account.setId(1);
-        List<Account> accounts = Arrays.asList(account);
+        List<Account> accounts = List.of(account);
         Payment payment = new Payment();
-        List<Payment> payments = Arrays.asList(payment);
+        List<Payment> payments = List.of(payment);
 
         when(accountService.getAccountsByUserId(userId)).thenReturn(accounts);
         when(paymentDAO.getPaymentsByAccount(1)).thenReturn(payments);

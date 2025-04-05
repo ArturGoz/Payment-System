@@ -3,12 +3,10 @@ package artur.goz.oop_lab1.DAO;
 import artur.goz.oop_lab1.DAO.interfaces.AccountDAO;
 import artur.goz.oop_lab1.configs.DBConfig;
 import artur.goz.oop_lab1.models.Account;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.sql.*;
-import java.util.List;
+
 
 @Component
 public class AccountDAOImpl implements AccountDAO {
@@ -68,10 +66,9 @@ public class AccountDAOImpl implements AccountDAO {
             stmt.setBoolean(2, account.isBlocked());
             stmt.executeUpdate();
 
-            // Retrieve the auto-generated account ID
             try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
-                    account.setId(generatedKeys.getInt(1)); // Update the account's ID
+                    account.setId(generatedKeys.getInt(1));
                 } else {
                     throw new SQLException("Creating account failed, no ID obtained.");
                 }

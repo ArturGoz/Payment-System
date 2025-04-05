@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface AccountService {
     List<Account> getAccountsByUserId(int userId);
+
     void blockAccount(int accountId);
+
     void unblockAccount(int accountId);
 }
