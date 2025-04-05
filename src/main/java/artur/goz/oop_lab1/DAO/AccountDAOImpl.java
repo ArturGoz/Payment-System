@@ -7,14 +7,12 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.List;
 
 @Component
 public class AccountDAOImpl implements AccountDAO {
+
     @Override
     public void blockAccount(int accountId, boolean block) {
         String sql = "UPDATE account SET blocked = ? WHERE id = ?";
@@ -56,6 +54,30 @@ public class AccountDAOImpl implements AccountDAO {
             stmt.setDouble(1, amount);
             stmt.setInt(2, accountId);
             stmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public Account createAccount(Account account) {
+        String sql = "INSERT INTO account (balance, blocked) VALUES (?, ?)";
+        try (Connection conn = DBConfig.connect();
+             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            stmt.setDouble(1, account.getBalance());
+            stmt.setBoolean(2, account.isBlocked());
+            stmt.executeUpdate();
+
+            // Retrieve the auto-generated account ID
+            try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    account.setId(generatedKeys.getInt(1)); // Update the account's ID
+                } else {
+                    throw new SQLException("Creating account failed, no ID obtained.");
+                }
+            }
+
+            return account;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

@@ -11,16 +11,27 @@ import java.sql.*;
 @Component
 public class UserDAOImpl implements UserDAO {
     @Override
-    public void createUser(User user) {
+    public User createUser(User user) {
         String sql = "INSERT INTO user (name, login, password, role) VALUES (?, ?, ?, ?)";
         try (Connection conn = DBConfig.connect();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
             stmt.setString(1, user.getName());
             stmt.setString(2, user.getLogin());
             stmt.setString(3, user.getPassword());
             stmt.setString(4, user.getRole());
             stmt.executeUpdate();
+
+            // Retrieve the auto-generated user ID
+            try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    user.setId(generatedKeys.getInt(1)); // Set the generated ID to the user object
+                } else {
+                    throw new SQLException("Creating user failed, no ID obtained.");
+                }
+            }
+
+            return user;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

@@ -28,7 +28,7 @@ public class UnBlockAccountServlet extends HttpServlet {
         }
 
         int accountId = Integer.parseInt(req.getParameter("accountId"));
-        accountService.blockAccount(accountId);
+        accountService.unblockAccount(accountId);
         resp.sendRedirect(req.getContextPath() + "/user");
     }
 }
