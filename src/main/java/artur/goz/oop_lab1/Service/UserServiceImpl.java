@@ -26,6 +26,7 @@ public class UserServiceImpl implements UserService {
     private final CreditCardDAO creditCardDAO;
     private final PaymentDAO paymentDAO;
 
+    //Add random user after project run, if needed
 /*    @PostConstruct
     public void init() {
         createRandomUserWithCardsAndAccounts();
