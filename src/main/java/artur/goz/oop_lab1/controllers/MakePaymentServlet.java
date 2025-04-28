@@ -43,8 +43,8 @@ public class MakePaymentServlet extends HttpServlet {
             resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid account IDs or amount format.");
         } catch (Exception e) {
             log.error("Error during payment processing: {} -> {}, amount {}. Reason: {}",
-                    accountIdToPayParam, accountIdToGetParam, amountParam, e.getMessage(), e);
-            resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Unable to process payment.");
+                    accountIdToPayParam, accountIdToGetParam, amountParam, e.getMessage());
+            resp.sendError(HttpServletResponse.SC_FORBIDDEN, "Unable to process payment.");
         }
     }
 }
