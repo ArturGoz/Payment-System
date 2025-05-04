@@ -3,9 +3,7 @@ package artur.goz.oop_lab1.controllers.front;
 import artur.goz.oop_lab1.Service.interfaces.AuthService;
 import artur.goz.oop_lab1.controllers.Controller;
 import artur.goz.oop_lab1.models.User;
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -25,8 +23,8 @@ public class LoginController implements Controller {
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-         log.info("Handling GET request to /login");
-         req.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(req, resp);
+        log.info("Handling GET request to /login");
+        req.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(req, resp);
     }
 
     @Override

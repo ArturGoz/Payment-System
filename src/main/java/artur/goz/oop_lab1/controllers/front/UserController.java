@@ -9,7 +9,6 @@ import artur.goz.oop_lab1.models.CreditCard;
 import artur.goz.oop_lab1.models.Payment;
 import artur.goz.oop_lab1.models.User;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;

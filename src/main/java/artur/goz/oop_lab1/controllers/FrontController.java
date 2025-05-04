@@ -2,29 +2,25 @@ package artur.goz.oop_lab1.controllers;
 
 import artur.goz.oop_lab1.controllers.front.LoginController;
 import artur.goz.oop_lab1.controllers.front.UserController;
-import artur.goz.oop_lab1.models.User;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @WebServlet("/api/*")
 @Component
 @Slf4j
 public class FrontController extends HttpServlet {
-    private Map<String, Controller> controllerMap = new HashMap<>();
+    private final Map<String, Controller> controllerMap = new HashMap<>();
 
     @Override
     public void init() throws ServletException {

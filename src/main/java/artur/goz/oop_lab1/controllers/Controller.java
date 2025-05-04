@@ -9,6 +9,7 @@ import java.io.IOException;
 public interface Controller {
     void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException;
+
     void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException;
 }

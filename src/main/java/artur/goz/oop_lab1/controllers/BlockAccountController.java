@@ -2,7 +2,6 @@ package artur.goz.oop_lab1.controllers;
 
 import artur.goz.oop_lab1.Service.interfaces.AccountService;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
