@@ -3,25 +3,31 @@ package artur.goz.oop_lab1.controllers;
 import artur.goz.oop_lab1.Service.interfaces.AccountService;
 import artur.goz.oop_lab1.models.User;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
-@WebServlet("/unblock-account")
+
 @Slf4j
 @RequiredArgsConstructor
-public class UnBlockAccountServlet extends HttpServlet {
+@Component
+public class UnBlockAccountController implements Controller {
 
     private final AccountService accountService;
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+    }
+
+    @Override
+    public void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
         HttpSession session = req.getSession(false);
@@ -30,7 +36,7 @@ public class UnBlockAccountServlet extends HttpServlet {
         if (user == null || !user.getRole().contains("admin")) {
             log.warn("Unauthorized unblock attempt. Redirecting to login. User: {}",
                     user != null ? user.getName() : "null");
-            resp.sendRedirect(req.getContextPath() + "/login");
+            resp.sendRedirect(req.getContextPath() + "/api/login");
             return;
         }
 
@@ -43,7 +49,7 @@ public class UnBlockAccountServlet extends HttpServlet {
             accountService.unblockAccount(accountId);
             log.info("Account successfully unblocked: ID {}", accountId);
 
-            resp.sendRedirect(req.getContextPath() + "/user");
+            resp.sendRedirect(req.getContextPath() + "/api/user");
 
         } catch (NumberFormatException e) {
             log.warn("Invalid account ID format provided by admin '{}': '{}'",

@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>Login Page</h1>
-<form action="/login" method="post">
+<form action="/api/login" method="post">
     <input type="text" name="username">
     <input type="password" name="password">
     <button type="submit">Login</button>

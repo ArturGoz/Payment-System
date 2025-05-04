@@ -21,7 +21,7 @@ public class AuthFilter implements Filter {
 
         log.debug("Filtering request to path: {}", path);
 
-        if (path.equals("/login") || path.startsWith("/templates/") || path.startsWith("/public/")) {
+        if (path.equals("/api/login") || path.startsWith("/templates/") || path.startsWith("/public/")) {
             log.debug("Public path accessed: {} - allowing through", path);
             chain.doFilter(request, response);
             return;
@@ -31,10 +31,10 @@ public class AuthFilter implements Filter {
 
         if (session == null) {
             log.info("No session found. Redirecting to login.");
-            resp.sendRedirect(req.getContextPath() + "/login");
+            resp.sendRedirect(req.getContextPath() + "/api/login");
         } else if (session.getAttribute("user") == null) {
             log.info("Session exists but no user found in session. Redirecting to login.");
-            resp.sendRedirect(req.getContextPath() + "/login");
+            resp.sendRedirect(req.getContextPath() + "/api/login");
         } else {
             log.debug("User authenticated. Proceeding with request to {}", path);
             chain.doFilter(request, response);

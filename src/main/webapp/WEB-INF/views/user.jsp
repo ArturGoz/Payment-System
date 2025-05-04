@@ -17,7 +17,7 @@
 <h2>Your Accounts</h2>
 <c:forEach var="account" items="${accounts}">
     <p>Account ID: ${account.id}, Block status: ${account.blocked}, Balance: ${account.balance}</p>
-    <form action="/block-account" method="post">
+    <form action="/api/block-account" method="post">
         <input type="hidden" name="accountId" value="${account.id}">
         <button type="submit">Block Account</button>
     </form>
@@ -29,7 +29,7 @@
 </c:forEach>
 
 <h2>Make a Payment</h2>
-<form action="/make-payment" method="post">
+<form action="/api/make-payment" method="post">
     <label>Transfer money from Account ID: <input type="number" name="accountIdToPay"></label>
     <label>Transfer money to Account ID: <input type="number" name="accountIdToGet"></label>
     <label>Amount: <input type="number" name="amount" step="0.01"></label>
@@ -37,7 +37,7 @@
 </form>
 
 <h2>Deposit Money</h2>
-<form action="/deposit-money" method="post">
+<form action="/api/deposit-money" method="post">
     <label>Account ID: <input type="number" name="accountId"></label>
     <label>Amount: <input type="number" name="amount" step="0.01"></label>
     <button type="submit">Deposit</button>
@@ -46,7 +46,7 @@
 
 <c:if test="${user.role == 'admin'}">
     <h2>Unblock Account</h2>
-    <form action="/unblock-account" method="post">
+    <form action="/api/unblock-account" method="post">
         <label>Account ID: <input type="number" name="accountId"></label>
         <button type="submit">Unblock</button>
     </form>
